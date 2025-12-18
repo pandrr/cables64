@@ -13,7 +13,7 @@ export default function defaultTask(cb)
     cables.export({
         "patchId": "7KM4J5",
         "destination": "patch",
-        noMinify:true,
+        "noMinify":false,
         "combineJs":true,
         "dev":true
     },
@@ -27,12 +27,13 @@ export default function defaultTask(cb)
         .pipe(gulp.dest("dist/"));
        
       exec('websqz --js-main dist/patch.js --output-directory dist/',
-                 function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    cb();
+                 function (err, stdout, stderr)
+                 {
+                    console.log(stdout);
+                    console.log(stderr);
+                    cb();
 
-        });
+                });
         
     
   }, (e)=>{
