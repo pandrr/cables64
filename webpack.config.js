@@ -1,7 +1,15 @@
 import TerserPlugin from "terser-webpack-plugin";
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+
+    const __dirname = dirname(fileURLToPath(import.meta.url));
+const plugins=[]
+        plugins.push(new BundleAnalyzerPlugin({ "analyzerMode": "static", "openAnalyzer": false, "reportTitle": "cables core", "reportFilename": path.join(__dirname, "build", "report_core.html") }));
 
 export default () => {
     return {
+        "plugins": plugins,
         "mode": "production",
         "entry": "./dist/patch.js",
         "output": {
@@ -16,7 +24,7 @@ export default () => {
                     "toplevel": true
                 }
             })],
-            "minimize": true,
+            "minimize": false,
             "usedExports": true
         },
         "module": {
