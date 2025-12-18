@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "gulp",
+    "start": "http-server dist/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -11,9 +13,12 @@
   "description": "",
   "devDependencies": {
     "@cables/cables": "^0.23.0",
-    "gulp": "^5.0.1"
+    "gulp": "5.0.1",
+    "webpack": "5.104.0",
+    "terser-webpack-plugin": "5.3.16",
+    "gulp-concat": "2.6.1",
+    "http-server": "14.1.1"
   },
   "dependencies": {
-    "gulp-concat": "^2.6.1"
   }
 }
