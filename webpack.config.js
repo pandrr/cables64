@@ -24,7 +24,7 @@ export default () => {
                     "toplevel": true
                 }
             })],
-            "minimize": false,
+            "minimize": true,
             "usedExports": true
         },
         "module": {
