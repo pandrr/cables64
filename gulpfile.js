@@ -6,12 +6,14 @@ import webpack from "webpack";
 import webpackConfig from "./webpack.config.js";
 
 function _export_patch(done) {
+    cables._cli._baseUrl="https://local.cables.local"
     cables.export({
-        "patchId": "7KM4J5",
+        "patchId": "xTZgE5",
         "destination": "patch",
         "noMinify": true,
         "combineJs": true,
-        "dev": true
+        "apiKey":"7bf3b8d08127602c0ac0230bf30fdc06325134f4cccf975a6a68a4ac02805da1eda4e9bc69353e368162dedb077541e2"
+        // "dev": true
     },
     () => {
         done();
