@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "gulp",
+    "build": "gulp build",
+    "crunch": "gulp crunch",
+    "patchup": "gulp fetch",
     "start": "http-server dist/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,8 +19,7 @@
     "webpack": "5.104.0",
     "terser-webpack-plugin": "5.3.16",
     "gulp-concat": "2.6.1",
-    "http-server": "14.1.1"
-  },
-  "dependencies": {
+    "http-server": "14.1.1",
+    "webpack-strip-blocks": "1.0.0"
   }
 }
