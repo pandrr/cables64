@@ -48,5 +48,12 @@ function _run_websqz(done) {
         });
 }
 
-export default gulp.series(_export_patch, _combine_js, _run_webpack, _run_websqz);
+const fetch = gulp.series(_export_patch)
+const crunch = gulp.series(_combine_js, _run_webpack, _run_websqz);
+const build = gulp.series(fetch, crunch);
+export {
+    build,
+    fetch,
+    crunch
+}
 

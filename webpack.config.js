@@ -1,6 +1,6 @@
 import TerserPlugin from "terser-webpack-plugin";
 
-export default ()  => {
+export default () => {
     return {
         "mode": "production",
         "entry": "./dist/patch.js",
@@ -11,14 +11,31 @@ export default ()  => {
             "concatenateModules": true,
             "minimizer": [new TerserPlugin({
                 "extractComments": false,
-                "terserOptions": { "output": { "comments": false } }
+                "terserOptions": {
+                    "output": {"comments": false},
+                    "toplevel": true
+                }
             })],
             "minimize": true,
             "usedExports": true
         },
         "module": {
             "rules": [
-                { "sideEffects": false },
+                {"sideEffects": false},
+                {
+                    "test": /\.js$/,
+                    "enforce": 'pre',
+                    "use": [
+                        {
+                            "loader": "webpack-strip-blocks",
+                            "options": {
+                                "blocks": ["minimalcore"],
+                                "start": '/*',
+                                "end": '*/'
+                            }
+                        }
+                    ]
+                }
             ]
         },
     }
