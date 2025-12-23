@@ -8,7 +8,7 @@ import webpackConfig from "./webpack.config.js";
 function _export_patch(done) {
     cables._cli._baseUrl="https://local.cables.local"
     cables.export({
-        "patchId": "xTZgE5",
+        "patchId": "YIXVc6",
         "destination": "patch",
         "noMinify": true,
         "combineJs": true,

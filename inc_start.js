@@ -5,32 +5,29 @@
 
         function patchInitialized(patch)
         {
-            // You can now access the patch object (patch), register variable watchers and so on
         }
 
         function patchFinishedLoading(patch)
         {
-            // The patch is ready now, all assets have been loaded
         }
 
-        // document.addEventListener("CABLES.jsLoaded", function (event)
-        {
 window.CABLES=CABLES;
 window.Ops =Ops;
 
-            const ele=document.createElement("canvas")
-            ele.setAttribute("id","glcanvas")
+            const ele=document.createElement("div")
+            ele.setAttribute("id","cablescanvas");
+            ele.style.width="100%"
+            ele.style.height="100%"
+            document.body.appendChild(ele);
+            document.body.style.margin="0px";
 
             CABLES.patch = new CABLES.Patch({
                 patch: CABLES.exportedPatch,
                 "prefixAssetPath": "",
                 "assetPath": "assets/",
                 "jsPath": "js/",
-                "glCanvasId": "glcanvas",
                 "glCanvasResizeToWindow": true,
                 "onError": showError,
                 "onPatchLoaded": patchInitialized,
-                "onFinishedLoading": patchFinishedLoading,
-                "canvas": {"alpha":true, "premultipliedAlpha":true } // make canvas transparent
+                "onFinishedLoading": patchFinishedLoading
             });
-        };
