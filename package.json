@@ -24,6 +24,7 @@
     "webpack-strip-blocks": "1.0.0"
   },
   "dependencies": {
+    "jsonfile": "^6.2.0",
     "webpack-bundle-analyzer": "4.10.2"
   }
 }
