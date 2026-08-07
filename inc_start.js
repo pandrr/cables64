@@ -26,6 +26,7 @@ window.Ops =Ops;
                 "prefixAssetPath": "",
                 "assetPath": "assets/",
                 "jsPath": "js/",
+                "containerElement":ele,
                 "glCanvasResizeToWindow": true,
                 "onError": showError,
                 "onPatchLoaded": patchInitialized,

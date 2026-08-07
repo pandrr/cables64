@@ -1,27 +1,30 @@
 import gulp from "gulp";
 import concat from "gulp-concat";
-import cables from "@cables/cables";
+import {Cables} from "@cables/cables";
 import {exec} from 'node:child_process';
 import webpack from "webpack";
 import webpackConfig from "./webpack.config.js";
 
 function _export_patch(done) {
-    cables._cli._baseUrl="https://local.cables.local"
+  const cables=new Cables()
     cables.export({
-        "patchId": "YIXVc6",
+
+    "url":"https://local.cables.local",
+        "patch": "hgLqCr",
         "destination": "patch",
-        "noMinify": true,
-        "combineJs": true,
-        "apiKey":"7bf3b8d08127602c0ac0230bf30fdc06325134f4cccf975a6a68a4ac02805da1eda4e9bc69353e368162dedb077541e2"
+        "m": true,
+        "combinejs": false,
+        "apikey":"7bf3b8d08127602c0ac0230bf30fdc06325134f4cccf975a6a68a4ac02805da1eda4e9bc69353e368162dedb077541e2"
         // "dev": true
-    },
-    () => {
-        done();
-    },
-    (e) => {
+    }
+      ).then((r) => {
+          console.log("done!",r)
+        done()
+      }).catch((e) => {
+
         console.log("err", e)
         done(e);
-    });
+      })
 }
 
 function _combine_js() {
@@ -58,4 +61,3 @@ export {
     fetch,
     crunch
 }
-
