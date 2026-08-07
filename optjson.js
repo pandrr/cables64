@@ -1,19 +1,13 @@
 
-import cables from "@cables/cables";
 import jsonfile from "jsonfile";
 
-cables._cli._baseUrl="https://local.cables.local"
-cables.export({
-    "patchId": "3qHWPq",
-    "destination": "patch",
-    "noMinify": true,
-    "combinejs": false,
-    "apiKey":"7bf3b8d08127602c0ac0230bf30fdc06325134f4cccf975a6a68a4ac02805da1eda4e9bc69353e368162dedb077541e2"
-    // "dev": true
-},
-() => {
+// const fn="patch/js/graceful_branch.json"
+// optJson(fn)
 
-const fn="patch/js/voracious_mine.json"
+export function optJson(fn)
+{
+    
+
 jsonfile.readFile(fn, function (err, obj)
 {
     if (err) console.error(err)
@@ -32,6 +26,7 @@ jsonfile.readFile(fn, function (err, obj)
           });
           countIds++
         
+        if(a.attribs&&Object.keys(a.attribs).length==0) delete a.attribs
 
         delete a.uiAttribs
 
@@ -65,8 +60,5 @@ jsonfile.readFile(fn, function (err, obj)
 
 
 })
-},
 
-(e) => {
-    console.log("err", e)
-});
+}

@@ -5,6 +5,8 @@ import {exec} from 'node:child_process';
 import webpack from "webpack";
 import webpackConfig from "./webpack.config.js";
 
+import {optJson} from "./optjson.js";
+
 function _export_patch(done) {
   const cables=new Cables()
     cables.export({
@@ -44,6 +46,11 @@ function _run_webpack(done) {
     });
 }
 
+function _run_optJson(done) {
+    optJson("patch/js/graceful_branch.json")
+    done()
+}
+
 function _run_websqz(done) {
     exec('websqz --js-main dist/patch.js --output-directory dist/',
         function (err, stdout, stderr) {
@@ -54,6 +61,7 @@ function _run_websqz(done) {
 }
 
 const fetch = gulp.series(_export_patch)
+// const crunch = gulp.series(_combine_js, _run_webpack, _run_optJson,_run_websqz);
 const crunch = gulp.series(_combine_js, _run_webpack, _run_websqz);
 const build = gulp.series(fetch, crunch);
 export {
