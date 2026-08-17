@@ -16,6 +16,7 @@ function _export_patch(done) {
         "patch": "LMgots",
         "destination": "patch",
         "minify": false,
+        "jsonfilename":"patch.json",
         "index":false,
         "combinejs": false,
         "apikey":"7bf3b8d08127602c0ac0230bf30fdc06325134f4cccf975a6a68a4ac02805da1eda4e9bc69353e368162dedb077541e2"

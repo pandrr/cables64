@@ -11,7 +11,7 @@ export function mergeall()
 
     let targetDir="patch/js/"
 
-    let jsonFileName = "copy_of_graceful_branch.json"
+    let jsonFileName = "patch.json"
     const jsonFile = path.resolve(path.join(targetDir, jsonFileName));
     let proJson = fs.readFileSync(jsonFile);
 
