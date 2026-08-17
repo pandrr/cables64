@@ -6,20 +6,21 @@ import cablesWebpackConfig from "@cables/cables/src/webpack/webpack.config.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const plugins=[];
-plugins.push(new BundleAnalyzerPlugin({ "analyzerMode": "static", "openAnalyzer": false, "reportTitle": "cables core", "reportFilename": path.join(__dirname, "dist", "report_core.html") }));
+// plugins.push(new BundleAnalyzerPlugin({ "analyzerMode": "static", "openAnalyzer": false, "reportTitle": "cables core", "reportFilename": path.join(__dirname, "dist", "report_core.html") }));
 
 export default () => {
   const cablesConfigs = cablesWebpackConfig({
     "mode": "production",
-    "entry": "./export/quiet_board.cables",
+    "entry": "./gen/export/adept_love.cables",
     "output": {
-      "path": path.resolve("./patch/")
+      "path": path.resolve("./gen/patch/")
     },
     "options": {
       "combinejs": true,
-      "minify": true
+      "minify": false,
+      "index": false,
     },
-    "plugins": plugins
+    "plugins": plugins,
   });
   return [
     ...cablesConfigs,
@@ -27,9 +28,10 @@ export default () => {
       "plugins": plugins,
       "dependencies": cablesConfigs.map((c) => { return c.name; }),
       "mode": "production",
-      "entry": "./patch/js/patch.js",
+      "entry": "./gen/patch/js/patch.js",
       "output": {
-        "filename": "patch.js",
+        "path": path.resolve("./gen/patch/js/"),
+        "filename": "patch_webpack.js",
       },
       "optimization": {
         "concatenateModules": true,
@@ -40,7 +42,7 @@ export default () => {
             "toplevel": true
           }
         })],
-        "minimize": true,
+        "minimize": false,
         "usedExports": true
       },
       "module": {
