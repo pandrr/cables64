@@ -8,9 +8,10 @@ export function optJson(fn)
 {
     
 
-jsonfile.readFile(fn, function (err, obj)
-{
-    if (err) console.error(err)
+let obj=jsonfile.readFileSync(fn)
+// , function (err, obj)
+// {
+    // if (err) console.error(err)
     const oldl=JSON.stringify(obj).length
     delete obj._id
     delete obj.export
@@ -53,12 +54,12 @@ jsonfile.readFile(fn, function (err, obj)
 
     obj=JSON.parse(str)
 
-    console.log(JSON.stringify(obj,null,4))
+    // console.log(JSON.stringify(obj,null,4))
     const newl=JSON.stringify(obj).length
     // console.log("text",str)
     console.log("length "+oldl+" -> "+newl)
+return JSON.stringify(obj)
 
-
-})
+// })
 
 }
