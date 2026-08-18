@@ -7,8 +7,9 @@
         "build": "gulp build",
         "crunch": "gulp crunch",
         "patchup": "gulp fetch",
-        "start": "http-server dist/",
+        "start": "http-server gen/",
         "squeeze": "gulp squeeze",
+        "clean": "rm -rf gen/",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",

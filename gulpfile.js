@@ -12,8 +12,9 @@ function _export_patch(done) {
     cables.export({
         "url":"https://dev.cables.gl",
         "patch": "bDVLts",
-        "type": "patch",
+      "type": "patch",
         "destination": "gen/export",
+        "jsonfilename": "patch.cables",
         "allops": true,
     }
       ).then((r) => {
@@ -29,8 +30,8 @@ function _export_patch(done) {
 function _add_websqz_inc_js() {
     return gulp
         .src(["gen/patch/js/patch_webpack.js", "inc_start.js"])
-        .pipe(concat("patch.js"))
-        .pipe(gulp.dest("gen/dist/"));
+        .pipe(concat("complete.js"))
+        .pipe(gulp.dest("gen/patch/js/"));
 }
 
 function _run_webpack(done) {
@@ -49,7 +50,7 @@ function _run_optJson(done) {
 }
 
 function _run_websqz(done) {
-    exec('websqz --js-main gen/patch/js/patch_webpack.js --output-directory gen/dist/',
+    exec('websqz --js-main gen/patch/js/complete.js --output-directory gen/dist/',
         function (err, stdout, stderr) {
             console.log(stdout);
             console.log(stderr);

@@ -10,59 +10,59 @@ const plugins=[];
 
 export default () => {
   const cablesConfigs = cablesWebpackConfig({
-    "mode": "production",
-    "entry": "./gen/export/adept_love.cables",
-    "output": {
-      "path": path.resolve("./gen/patch/")
-    },
-    "options": {
-      "combinejs": true,
-      "minify": false,
-      "index": false,
-    },
-    "plugins": plugins,
-  });
+      "mode": "production",
+      "entry": "./gen/export/patch.cables",
+      "output": {
+        "path": path.resolve("./gen/patch/")
+      },
+      "options": {
+        "combinejs": true,
+        "minify": false,
+        "index": false,
+      },
+      "plugins": plugins,
+    });
   return [
     ...cablesConfigs,
     {
       "plugins": plugins,
-      "dependencies": cablesConfigs.map((c) => { return c.name; }),
-      "mode": "production",
-      "entry": "./gen/patch/js/patch.js",
-      "output": {
-        "path": path.resolve("./gen/patch/js/"),
-        "filename": "patch_webpack.js",
-      },
-      "optimization": {
-        "concatenateModules": true,
-        "minimizer": [new TerserPlugin({
-          "extractComments": false,
-          "terserOptions": {
-            "output": { "comments": false },
-            "toplevel": true
-          }
-        })],
-        "minimize": false,
-        "usedExports": true
-      },
-      "module": {
-        "rules": [
-          { "sideEffects": false },
-          {
-            "test": /\.js$/,
-            "enforce": 'pre',
-            "use": [
-              {
-                "loader": "webpack-strip-blocks",
-                "options": {
-                  "blocks": ["minimalcore"],
-                  "start": '/*',
-                  "end": '*/'
-                }
+            "dependencies": cablesConfigs.map((c) => { return c.name; }),
+    "mode": "production",
+    "entry": "./gen/patch/js/patch.js",
+    "output": {
+      "path": path.resolve("./gen/patch/js/"),
+      "filename": "patch_webpack.js",
+    },
+    "optimization": {
+      "concatenateModules": true,
+      "minimizer": [new TerserPlugin({
+        "extractComments": false,
+        "terserOptions": {
+          "output": { "comments": false },
+          "toplevel": true
+        }
+      })],
+      "minimize": true,
+      "usedExports": true
+    },
+    "module": {
+      "rules": [
+        { "sideEffects": false },
+        {
+          "test": /\.js$/,
+          "enforce": 'pre',
+          "use": [
+            {
+              "loader": "webpack-strip-blocks",
+              "options": {
+                "blocks": ["minimalcore"],
+                "start": '/*',
+                "end": '*/'
               }
-            ]
-          }
-        ]
-      },
-    }];
+            }
+          ]
+        }
+      ]
+    },
+  }];
 }
