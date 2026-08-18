@@ -15,8 +15,10 @@ export function mergeall()
     const jsonFile = path.resolve(path.join(targetDir, jsonFileName));
     let proJson = fs.readFileSync(jsonFile);
 
-    // proJson=optJson(jsonFile);
+    proJson=optJson(jsonFile);
     // proJson=JSON.stringify(optJson(JSON.parse(proJson)));
+
+    fs.writeFileSync(path.join(targetDir, "optimized.json"),proJson );
 
     const opsCode = fs.readFileSync(path.join(targetDir, "ops.js"));
     const shortId="0"
@@ -31,6 +33,7 @@ export function mergeall()
     jsCode += "\n";
     jsCode += fs.readFileSync(path.join(targetDir, "minigpu.js"));
     jsCode += fs.readFileSync(path.join(targetDir, "shadergraph.js"));
+    // jsCode += fs.readFileSync(path.join(targetDir, "cgl.js"));
 
     jsCode = jsCode.replaceAll(/[\u2028]/g, " ");
     jsCode = jsCode.replaceAll(/[\u2029]/g, " ");
@@ -47,7 +50,6 @@ export function mergeall()
     jsCode += 'CABLES.patch = new CABLES.Patch({\n';
     jsCode += '    patch: CABLES.exportedPatch,\n';
     jsCode += '    "prefixAssetPath": "",\n';
-    jsCode += '    "assetPath": "assets/",\n';
     jsCode += '    "jsPath": "js/",\n';
     jsCode += '    "glCanvasResizeToWindow": true,\n';
     jsCode += '    "onError": showError,\n';

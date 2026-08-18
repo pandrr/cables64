@@ -1,17 +1,37 @@
-
 import jsonfile from "jsonfile";
+import fs from "fs";
+import path from "path";
 
-// const fn="patch/js/graceful_branch.json"
-// optJson(fn)
+const options={
+    delPortNames:true,
+    replaceOpIds:false
+}
+
+function optPorts(op,ports)
+{
+            const values=[]
+            
+            for(let j=0;j<ports.length;j++)
+            {
+                if(ports[j].multiPortNum||ports[j].links)
+                {
+                    if(Object.keys(ports[j].attribs).length ==0)delete ports[j].attribs;
+                    values.push(ports[j])
+                }
+                else
+                {
+                    
+                values.push(ports[j].attribs?.sg||ports[j].value)
+                }
+
+            }
+return values
+}
+
 
 export function optJson(fn)
 {
-    
-
-let obj=jsonfile.readFileSync(fn)
-// , function (err, obj)
-// {
-    // if (err) console.error(err)
+    let obj=jsonfile.readFileSync(fn)
     const oldl=JSON.stringify(obj).length
     delete obj._id
     delete obj.export
@@ -20,36 +40,54 @@ let obj=jsonfile.readFileSync(fn)
 
     for(let i=0;i<obj.ops.length;i++)
     {
-        const a= obj.ops[i] 
-        replc.push({
-          o:"\""+a.id+"\"",
-          n:countIds
-          });
-          countIds++
+       
+        const op=obj.ops[i]
+        if(Object.keys(op.attribs).length ==0)delete op.attribs
         
-        if(a.attribs&&Object.keys(a.attribs).length==0) delete a.attribs
+        if(op.portsIn)
+        {
+            op.valuesIn=optPorts(op,op.portsIn)
+            delete op.portsIn
+        }
 
-        delete a.uiAttribs
+        if(op.portsOut)
+        {
+            op.valuesOut=optPorts(op,op.portsOut)
+            delete op.portsOut
+        }
 
-        // if(obj.ops[i].portsOut)
-        // {
-        //     for(let c=0;c<obj.ops[i].portsOut.length;c++)
-        //     {
-        //         for(let j=0;j<obj.ops[i].portsOut[c].links.length;j++)
-        //         {
-        //             // obj.ops[i].portsOut[c].links[j].
-        //            // console.log("text",obj.ops[i].portsOut[c].links)
-        //             delete obj.ops[i].portsOut[c].links[j].objOut;
-        //             delete obj.ops[i].portsOut[c].links[j].portOut;
-        //         }
-        //     }
-        // }
+        // if(op.portsOut)
+        //     for(let j=0;j<op.portsOut.length;j++)
+        //         optPort(op.portsOut[j])
+    }
+
+
+    if(options.replaceOpIds)
+    {
+        for(let i=0;i<obj.ops.length;i++)
+        {
+            const a= obj.ops[i] 
+            replc.push(
+                {
+                  o:"\""+a.id+"\"",
+                  n:countIds
+              });
+              countIds++
+        
+            if(a.attribs&&Object.keys(a.attribs).length==0) delete a.attribs
+
+            delete a.uiAttribs
+        }
     }
 
     let str=JSON.stringify(obj)
-    for(let i=0;i<replc.length;i++)
+
+    if(options.replaceOpIds)
     {
-        str=str.replaceAll(replc[i].o,replc[i].n)
+        for(let i=0;i<replc.length;i++)
+        {
+            str=str.replaceAll(replc[i].o,replc[i].n)
+        }
     }
 
     obj=JSON.parse(str)
@@ -57,9 +95,10 @@ let obj=jsonfile.readFileSync(fn)
     // console.log(JSON.stringify(obj,null,4))
     const newl=JSON.stringify(obj).length
     // console.log("text",str)
-    console.log("length "+oldl+" -> "+newl)
-return JSON.stringify(obj)
+     
+    fs.writeFileSync(path.resolve("./patch/js/", "optimized_beauty.json"), JSON.stringify(obj,false,4) );
 
-// })
+    console.log("length "+oldl+" -> "+newl)
+    return JSON.stringify(obj)
 
 }

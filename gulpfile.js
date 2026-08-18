@@ -13,7 +13,8 @@ function _export_patch(done) {
     cables.export({
 
     "url":"https://local.cables.local",
-        "patch": "LMgots",
+        // "patch": "LMgots",
+        "patch": "GLVfAs",
         "destination": "patch",
         "minify": false,
         "jsonfilename":"patch.json",
@@ -31,13 +32,6 @@ function _export_patch(done) {
         done(e);
       })
 }
-
-// function _combine_js() {
-//     return gulp
-//         .src(["patch/js/complete.js", "inc_start.js"])
-//         .pipe(concat("patch.js"))
-//         .pipe(gulp.dest("dist/"));
-// }
 
 function _run_webpack(done) {
     webpack(webpackConfig(), (err, stats) => {
