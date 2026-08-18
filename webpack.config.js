@@ -19,6 +19,9 @@ export default () => {
         "combinejs": true,
         "minify": false,
         "index": false,
+        "analyze": {
+          "path": "./gen/reports"
+        }
       },
       "plugins": plugins,
     });
