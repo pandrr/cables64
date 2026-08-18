@@ -3,8 +3,8 @@ import fs from "fs";
 import path from "path";
 
 const options={
-    delPortNames:true,
-    replaceOpIds:false
+    delPortNames:false,
+    replaceOpIds:true
 }
 
 function optPorts(op,ports)
@@ -15,8 +15,16 @@ function optPorts(op,ports)
             {
                 if(ports[j].multiPortNum||ports[j].links)
                 {
-                    if(Object.keys(ports[j].attribs).length ==0)delete ports[j].attribs;
-                    values.push(ports[j])
+                    try{
+                        // if(ports[j].hasOwnProperty("attribs") )
+                            // if(Object.keys(ports[j].attribs).length ==0)delete ports[j].attribs;
+
+                        values.push(ports[j])
+                    }
+                    catch(e)
+                    {
+                        console.log("text",e,ports[j])
+                    }
                 }
                 else
                 {
@@ -38,6 +46,7 @@ export function optJson(fn)
     const replc=[]
     let countIds=0
 
+    if(options.delPortNames)
     for(let i=0;i<obj.ops.length;i++)
     {
        
@@ -70,7 +79,7 @@ export function optJson(fn)
             replc.push(
                 {
                   o:"\""+a.id+"\"",
-                  n:countIds
+                  n:"\""+String(countIds)+"\""
               });
               countIds++
         
