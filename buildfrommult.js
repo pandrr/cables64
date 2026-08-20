@@ -49,9 +49,9 @@ export function mergeall()
     jsCode += '\n';
     jsCode += 'CABLES.patch = new CABLES.Patch({\n';
     jsCode += '    patch: CABLES.exportedPatch,\n';
-    jsCode += '    "prefixAssetPath": "",\n';
-    jsCode += '    "jsPath": "js/",\n';
-    jsCode += '    "glCanvasResizeToWindow": true,\n';
+    // jsCode += '    "prefixAssetPath": "",\n';
+    // jsCode += '    "jsPath": "js/",\n';
+    // jsCode += '    "glCanvasResizeToWindow": true,\n';
     jsCode += '    "onError": showError,\n';
     jsCode += '});\n';
 
